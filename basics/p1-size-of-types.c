@@ -10,7 +10,7 @@
 // e.g man 3 printf 
 
 
-// Let's check the size of differents variables in C language
+// Let's check the size of differents types in C language
 
 #include <stdio.h>
 

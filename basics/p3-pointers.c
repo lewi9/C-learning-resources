@@ -20,8 +20,18 @@ void * arrayCreate( char type, int size );
 void freeHandler( int ev, void * ptr );
 
 // 0. Analyze code. Note that we can iterrate in different ways.
+// How to create pointer? 
+// How to create pointer with differents size?
+// How to put pointer to the function?
+// How return pointer from the function?
+// How to deallocate memory?
+// Is pointer similar to array?
+// *ptr = ptr[0] ?
+// *(ptr+i) = ptr[i]?
+// How to cast pointers?
+// Void* - pointer of any type
 // 1. Run the code 
-// 2. Can you explain why the number are increasing and suddenly the value is under 0?
+// 2. Can you explain why the number are increasing and suddenly the value is under 0? (HINT: look size of types)
 // 3. Modify the code that width of field, where number are printed, has width as wide as max number
 // e.g. width: 3 because 100 is 3 digits wide.
 //  1
@@ -84,7 +94,7 @@ void * arrayCreate( char type, int size )
 	{
 		case 's':
 			// If you read it in vim, you can put cursor on the name function and press esc and next shift+k to go to the manual page.
-			short * ptr = calloc( size, sizeof(short)*20 );
+			short * ptr = calloc( size, sizeof(short) );
 			// Error handling
 			if( !ptr ) 
 			{
