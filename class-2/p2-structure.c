@@ -20,7 +20,7 @@ typedef struct Row{
 void printRowPtr( Row * ptr );
 
 // Implement missing function
-// It should change value of short number to be in range [lower, upper)
+// It should change value of short number to be in range [lower, upper+lower)
 // size means how many Rows are in Row*
 void numberToRange( int lower, int upper, Row * ptr, int size );
 
