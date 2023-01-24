@@ -43,11 +43,13 @@ int main( int argc, char * argv[] )
 	// read return number of readed bytes. In case of error -1 is returned.
 
 	//Both forms are correct
+
 	//ssize_t readed = read(file, array, SIZE);
 	int readed = read(file, array, SIZE);
 
 	if( readed == -1 )
 	{
+		close(file);
 		perror("Read");
 		exit(EXIT_FAILURE);
 	}
@@ -59,6 +61,9 @@ int main( int argc, char * argv[] )
 	printAsDouble();
 
 	printAsLongDouble();
+
+	// Close file before program end works
+	close(file);
 
 	exit(EXIT_SUCCESS);
 }
@@ -74,6 +79,7 @@ void printAsDouble()
 void printAsLongDouble()
 {
 	//Your code here
+	//HINT: %Lf
 }
 
 void printAsInteger()

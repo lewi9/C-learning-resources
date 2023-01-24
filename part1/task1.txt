@@ -1,0 +1,42 @@
+Task 1
+Create a program that's follow specification:
+- Takes a file name as argument, there is only one position argument, if more or less - print message to stderr and exit
+- Open the file. File has N+1 integers. The first one is number N. Intergers are writen on 4 bytes each. You should use read()
+e.g after "translate"
+3
+1234
+42356
+19
+- You should use calloc to allocate memory for N numbers
+- Program reads numbers and store (except first, which is N number) in allocated array
+- Program should print numbers as string, the first digit means width of printed string
+e.g
+325753 should be printed as 325
+if first digit is lower than number of digits, the number should be aligned to left
+
+Result in terminal for './prog ex1.bin'
+346
+356
+23
+56
+Result in terminal for './prog'
+"There is no file path given"
+Result in terminal for './prog ex1.txt ex2.txt' 
+"Too much paths were given"
+
+You should use calloc, open, read, printf
+You should declare some functions, not all code in main!
+HINT: sprintf (convert int to string)
+
+You can find solution in dir task1-solution
+
+Example of functions
+// fd - file descriptor, this is result of open function
+// int fd = open(path, flags)
+
+int * createArray( int fd, int * N );
+
+void readNumbers( int fd, int * ptr, int size );
+
+void printNumbers( int * ptr, int size );
+
