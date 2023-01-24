@@ -21,6 +21,12 @@ void printRowPtr( Row * ptr );
 
 // Implement missing function
 // It should change value of short number to be in range [lower, upper+lower)
+// e.g
+// row[1].number == 124124
+// row[2].number == -12451
+// => using function [lower = 10, upper = 20] =>
+// row[1].number == 14
+// row[2].number == 21
 // size means how many Rows are in Row*
 void numberToRange( int lower, int upper, Row * ptr, int size );
 

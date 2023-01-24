@@ -23,6 +23,7 @@ int main( int argc, char * argv[] )
 
 	// If you want write something to file, you need call write() function.
 	// The first argument is path, the second is pointer to data, the third is size of data
+	// if error -1 is returned
 	if( write(file, arr, sizeof(int)*5) == -1 )
 	{
 		perror(NULL);

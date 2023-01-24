@@ -13,7 +13,7 @@ typedef struct Row{
 	double value;
 }Row;
 
-// Print size rows from ptr
+// Print rows from stored in row ptr
 void printRowPtr( Row * ptr, int size );
 
 // Change number field to value of range [lower, upper+lower)

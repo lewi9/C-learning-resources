@@ -21,6 +21,7 @@
 
 #define OUTPUT_FILE "res-p3.bin"
 
+// read comments in implementation of that function
 void writer( int fd, Row * ptr, int size );
 
 int main( int argc, char * argv[] )
