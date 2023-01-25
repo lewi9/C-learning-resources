@@ -1,0 +1,35 @@
+LANGUAGE: POLISH
+
+Napisz program który jest zgodny z poniższą specyfikacją:
+
+- użytkownik podaje 4 argumenty podczas wywołania:
+	- -l <short> dolna granica L, która jest nieujemna
+	- -u <short> górna granica U, która jest nieujemna
+	- argument pozycyjny, który jest nazwą pliku wynikowego, należy przyjąć, że nazwa pliku nie powinna być dłuższa nic 12 znaków + znak o kodzie zero
+	- -c, nie przyjmuje wartości, parametr dalej nazywany C
+Dwa pierwsze argumenty są wymagane, trzeci i czwarty jest opcjonalny, a domyślną wartością trzeciego jest res.bin. 
+Pozwala się na redefiniowanie opcji -c, pozostałe argumenty mogą wystąpić nie więcej niż jeden raz.
+
+- program ma zaalokować wymaganą pamięć na struktury:
+	struct {
+		short number
+		char info[5]
+		double value
+	}
+- domyślnie takich struktur ma być zaalokowanych 150
+- jeśli został zdefiniowany parametr C to ma być ich tylko 50
+- należy użyć funkcji do alokowania pamięci calloc, malloc, nie definiować tablicy na sztywno!
+- wartość struktur ma zostać wylosowana z pliku /dev/urandom i struktury mają być wypełnione
+- pola number mają mieć zmienioną w wartość tak, aby mieściły się w [L, L+U]
+- stuktury następnie mają być zapisane do pliku wynikowego
+- zapisywanie do pliku ma się odbywać w ten sposób, że pole number definiuje o ile ma zostać przesunięty wskaźnik od początku pliku zgodnie z sizeof(stuct)*number
+- jeśli wszystko wykonało się poprawnie program ma zakończyć działanie, w przeciwnym wypadku program ma zakończyć działanie oraz wypisać odpowiedni komunikat na strumień diagnostyczny
+- program ma być podzielony na procedury (funkcje)
+- przykładowy podział na procedury:
+	- parsowanie opcji (getopt)
+	- alokacja struktur
+	- wypełnianie stuktur
+	- normowanie wartości pola number
+	- zapisywanie do pliku
+- przykładowe funkcje których można użyć: calloc, open, read, write, lseek, getopt
+
