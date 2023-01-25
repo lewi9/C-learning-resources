@@ -48,6 +48,8 @@ int main( int argc, char ** argv )
 				{
 					flagA = 1;
 					// optarg value is value provided bu user
+
+					// NOTE THAT VALUE OBTAINED BY ERRNO IS STRING, SO IF WE WANT OBTAIN LONG WE NEED TO USE STRTOL
    					printf("Option a has arg: %s\n", optarg);
 
 					// It's forbiden assign string to array, it's needed to use strcpy

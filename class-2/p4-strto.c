@@ -53,6 +53,8 @@ void toL( char ** strings )
 	char * endptr;
 	for( int i=0; i<SIZE; ++i )
 	{
+		// IMPORTANT: WE DON'T DECLARE ERRNO, ERRNO IS DECLARED IN HEADER <errno.h>
+		// But we can assign value to errno (0 can be only assigned, any function doesn't set errno to 0)
 		errno = 0;
 		endptr = NULL;
 		long ld = strtol( strings[i], &endptr, 10 );
