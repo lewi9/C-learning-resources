@@ -37,7 +37,7 @@ Z procedury nie ma powrotu, w przypadku błędów proces ma zakończyć działan
 
 procedura ma zostać wywołana przez proces R. Jej zadaniem jest przygotwanie procesów potomnych i siebie do przesyłania danych
 
-Dodatkowo ma zapisać do globalnej tablicy Tpid pidy procesów potomnych, najpierw L, potem R
+Dodatkowo ma zapisać do globalnej tablicy Tpid pidy procesów potomnych, najpierw L, potem P
 Ma także zapisać deskryptory swoich potoków w globalnej tablicy Tdsc, najpierw odczyt, potem zapis
 
 Tablica Tpid typu pid_t
