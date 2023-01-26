@@ -16,6 +16,9 @@
 #define PARZYSTA (  ( n = rand() + 1 ) % 2 ) ? (n+1) % 128 : n % 128 ;
 #define NIEPARZYSTA ( ( n = rand() + 1) % 2 ) ? n % 128 : n+1 % 128;
 
+
+// W tym kodzie użyłem tylko prostą obsługę błędów. W poleceniu jest zapisane, aby była dokładna, póki co robiona na szybko.
+
 void errorP( char * message, int code ) { perror(message); exit(code); }
 void errorF( char * message, int code ) { fprintf(stderr, "%s\n", message); exit(code); }
 
@@ -123,10 +126,8 @@ void potokuj()
 				if( nanosleep( &pd, NULL) ) errorP("SLEEP", EXIT_FAILURE);
 				struct timespec d;
 				clock_gettime(CLOCK_REALTIME, &d);
-				fprintf(stderr, "MAMY KONTAKT\n");
 				strftime(p, BUFORSIZE-i, "-czas %D %T ", gmtime(&d.tv_sec));
-				printf("%s\n", bufor);
-				fflush(stdin);
+				write(1, bufor, BUFORSIZE);
 			}
 		}
 	}
@@ -159,7 +160,7 @@ void potokR(int x)
 			{
 				if(pfd.revents & POLLIN)
 				{	
-					if( read(0, bufor, 255) == -1 ) errorP("READ", EXIT_FAILURE);
+					if( read(Tdsc[0], bufor, BUFORSIZE) == -1 ) errorP("READ", EXIT_FAILURE);
 					printf("%s\n", bufor);
 					break;
 				}
