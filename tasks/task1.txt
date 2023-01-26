@@ -60,7 +60,7 @@ Tworzy tablicę trzech potoków. Najpierw odczyt, potem zapis. Jeżeli coś się
 
 Procedura działa dopóki nie zostanie wywołany komuniakt o błędzie. Odczytuje dane ze standardowego strumienia wejścia (pipe po przekierowaniu) do bufora char o wielkości 256 za pomocą funkcji poll.
 Poll ma być wywołany tak, aby czekał aż pojawi się wiadomość.
-Następnie proces czeka 1.25 sekundy, dopisuje aktualny czas z CLOCK_REALTIME w formie "-czas: <CLOCK_REALTIME> " i posyła wiadomość na standardowy strumień wyjścia (piepe po przekierowaniu).
+Następnie proces czeka 1.25 sekundy, dopisuje aktualny czas z CLOCK_REALTIME w formie "-czas: <CLOCK_REALTIME> " i posyła wiadomość na standardowy strumień wyjścia (pipe po przekierowaniu).
 
 ## Proces główny po wykonaniu konstrukcji sam zaczyna odbierać i nadawać korzystająć z tablicy Tdsc. 
 Wysyła wiadomość w formie "-czas: <CLOCK_REALTIME> ". Czeka na wiadomość za pomocą poll oczekującego 0.5 sekundy.

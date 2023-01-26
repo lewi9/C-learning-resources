@@ -43,6 +43,8 @@ int main( int argc, char ** argv )
 			errorP("CHILDREN", err);
 		errorF("Konstrukcja się nie powiodła.", err);
 	}
+	signal(SIGPIPE, SIG_IGN);
+	signal(SIGCHLD, SIG_IGN);
 	potokR(x);
 }
 
@@ -181,6 +183,8 @@ void potokR(int x)
 		}
 
 	}
+	kill(Tpid[0], SIGKILL);
+	kill(Tpid[1], SIGKILL);
 	exit(EXIT_SUCCESS);
 	
 }
