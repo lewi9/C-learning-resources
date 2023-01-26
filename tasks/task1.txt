@@ -1,0 +1,74 @@
+LANGUAGE = POLISH
+
+// kolokwium IiAD AGH - autor: dr Paweł Oleksik
+// Zmodyfikowane przez Adam Lewiński, w celu możliwości samodzielnego rozwiązania
+
+Napisz program według poniższej specyfikacji:
+
+Proces główny (R) tworzy dwóch potomków (L i P).
+Procesy połączone są potokami:
+R wysyła do L
+L wysyła do P
+P wysyła do R
+Każdy z nich też odbiera wiadomości.
+
+	R
+       / \
+      v   ^
+     /     \
+    L -->-- P
+
+W procesach potomnych standardowe strumienie wejścia i wyjścia są podpięte do odpowiednich końcówek potoków.
+
+W programie umieść poniższe funkcje oraz inne niezbędne do wykonania zadania:
+
+## void potomny( int ktory, int PTab[][2] );
+
+Procedura ma zostać wywołana od razu po utworzeniu potomka.
+'ktory' - 0 dla procesu L i 1 dla procesu P
+'PTab' - tablica file descriptor'y 3 potoków
+
+Procedura ma uporządkować potoki, dokonać przekierowań na odpowiednie strumienie.
+Następnie uruchomi funkcję ## potokuj()
+
+Z procedury nie ma powrotu, w przypadku błędów proces ma zakończyć działanie ze statusem błędu
+
+## int konstrukcja();
+
+procedura ma zostać wywołana przez proces R. Jej zadaniem jest przygotwanie procesów potomnych i siebie do przesyłania danych
+
+Dodatkowo ma zapisać do globalnej tablicy Tpid pidy procesów potomnych, najpierw L, potem R
+Ma także zapisać deskryptory swoich potoków w globalnej tablicy Tdsc, najpierw odczyt, potem zapis
+
+Tablica Tpid typu pid_t
+Tablica Tdsc typu int
+Obie dwuelementowe
+
+Za konfigurację odpowiada procedura potomny, wyżej opisana
+
+Po wykonaniu powyższej konfiguracji proces ma odczekać 0.030 milisekundy, a następnie za pomocą waitdid sprawdzić czy potomki nadal działają.
+Jeżeli wszystko się powiodło funkcja zwraca 0.
+Jeśli potomek przerwał działanie zwraca funkcja zwraca liczbę nieparzystą.
+Jeśli sama wyświetliła komunikat o błędzie to zwraca wartość parzystą różną od 0.
+
+## int potoki( int PTab[][2] );
+
+Tworzy tablicę trzech potoków. Najpierw odczyt, potem zapis. Jeżeli coś się nie powiodło zwraca wartość 1.
+
+
+## void potokuj()
+
+Procedura działa dopóki nie zostanie wywołany komuniakt o błędzie. Odczytuje dane ze standardowego strumienia wejścia (pipe po przekierowaniu) do bufora char o wielkości 256 za pomocą funkcji poll.
+Poll ma być wywołany tak, aby czekał aż pojawi się wiadomość.
+Następnie proces czeka 1.25 sekundy, dopisuje aktualny czas z CLOCK_REALTIME w formie "-czas: <CLOCK_REALTIME> " i posyła wiadomość na standardowy strumień wyjścia (piepe po przekierowaniu).
+
+## Proces główny po wykonaniu konstrukcji sam zaczyna odbierać i nadawać korzystająć z tablicy Tdsc. 
+Wysyła wiadomość w formie "-czas: <CLOCK_REALTIME> ". Czeka na wiadomość za pomocą poll oczekującego 0.5 sekundy.
+Jeśli po tym czasie nie nadejdzie wiadomość, proces wyświetli komunikat "Niecierpliwię się" na standardowy strumień wyjścia.
+Kiedy nadejdzie komunikat wysyła go na standardowy strumień wyjścia.
+Proces ma wysłać X wiadomości, gdzie X jest parametrem podanym przez użytkownika jako flaga -x <int> i jest wymagana.
+Proces powienien także na bieżąco sprawdzać, czy jego procesy potomne dalej żyją, jeśli nie żyje któryś z nich, powinien zakończyć działanie i wydrukować informację o odpowiedniej treści.
+Musi być zatem odporny na działanie sygnału SIGPIPE oraz SIGCHLD, a sprawdzać ma za pomocą waitid, po wysłaniu wiadomości lub po co piąte "zniecierpliwienie się procesu".
+Ponadto powinien jak najdokładniej powiadomić użytkownika o wszystkich innych błędach, które zaistniały.
+
+
