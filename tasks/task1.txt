@@ -28,7 +28,7 @@ Procedura ma zostać wywołana od razu po utworzeniu potomka.
 'ktory' - 0 dla procesu L i 1 dla procesu P
 'PTab' - tablica file descriptor'y 3 potoków
 
-Procedura ma uporządkować potoki, dokonać przekierowań na odpowiednie strumienie.
+Procedura ma uporządkować potoki, dokonać przekierowań na odpowiednie strumienie - stdin i stdout.
 Następnie uruchomi funkcję ## potokuj()
 
 Z procedury nie ma powrotu, w przypadku błędów proces ma zakończyć działanie ze statusem błędu
