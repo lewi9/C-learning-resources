@@ -13,11 +13,11 @@
 #define PIPES 3
 #define BUFORSIZE 256
 
-#define PARZYSTA (  ( n = rand() + 1 ) % 2 ) ? (n+1) % 128 : n % 128 ;
-#define NIEPARZYSTA ( ( n = rand() + 1) % 2 ) ? n % 128 : n+1 % 128;
+#define PARZYSTA (  ( n = rand() + 1 ) % 2 ) ? ( ( n = ((n+1) % 128) ) ? n : n+2 ) : ( (n = n % 128) ? n : n+2 )
+#define NIEPARZYSTA ( ( n = rand() + 1) % 2 ) ? n % 128 : n+1 % 128
 
 
-// W tym kodzie użyłem tylko prostą obsługę błędów. W poleceniu jest zapisane, aby była dokładna, póki co robiona na szybko.
+// W tym kodzie użyłem tylko prostą obsługę błędów.
 
 void errorP( char * message, int code ) { perror(message); exit(code); }
 void errorF( char * message, int code ) { fprintf(stderr, "%s\n", message); exit(code); }
@@ -32,6 +32,18 @@ void potokuj();
 int parsing( int argc, char ** argv );
 void potokR(int x);
 
+void childHandler()
+{
+	kill(Tpid[0], SIGKILL);
+	kill(Tpid[1], SIGKILL);
+}
+
+void sigHandler(int signal)
+{
+	kill(Tpid[0], SIGKILL);
+	kill(Tpid[1], SIGKILL);
+}
+
 int main( int argc, char ** argv )
 {
 	srand(0);
@@ -43,8 +55,11 @@ int main( int argc, char ** argv )
 			errorP("CHILDREN", err);
 		errorF("Konstrukcja się nie powiodła.", err);
 	}
+	atexit(childHandler);
 	signal(SIGPIPE, SIG_IGN);
 	signal(SIGCHLD, SIG_IGN);
+	signal(SIGTERM, sigHandler);
+	signal(SIGKILL, sigHandler);
 	potokR(x);
 }
 
@@ -92,7 +107,7 @@ int konstrukcja()
 	if( nanosleep(&p,NULL) ) return PARZYSTA;
 	for( int i = 0; i<PIPES-1; ++i )
 	{
-		if( waitid( P_PID, Tpid[i], NULL, WEXITED|WNOHANG ) == -1 ) return NIEPARZYSTA
+		if( waitid( P_PID, Tpid[i], NULL, WEXITED|WNOHANG ) == -1 ) return NIEPARZYSTA;
 	}
 	return 0;
 }
@@ -171,20 +186,18 @@ void potokR(int x)
 			{
 				++i;
 				printf("Niecierpliwię się\n");
-				if( i == 5)
+				if( i >= 5)
 				{
 					i = 0;
 					for( int i = 0; i<PIPES-1; ++i )
 					{
-						if( waitid( P_PID, Tpid[i], NULL, WEXITED|WNOHANG ) == -1 ) errorP("Potomok się coś stało", EXIT_FAILURE);
+						if( waitid( P_PID, Tpid[i], NULL, WEXITED|WNOHANG ) == -1 ) errorP("Potomkom się coś stało", EXIT_FAILURE);
 					}
 				}
 			}
 		}
 
 	}
-	kill(Tpid[0], SIGKILL);
-	kill(Tpid[1], SIGKILL);
 	exit(EXIT_SUCCESS);
 	
 }
