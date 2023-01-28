@@ -50,6 +50,8 @@ int main( int argc, char ** argv )
 	A a;
 	B b;
 	C c;
+	close(fd);
+
 	if( read(fd, &a, sizeof(a)) == -1 || read(fd, &b, sizeof(b)) == -1 || read(fd, &c, sizeof(c)) == -1 )
 	{
 		perror(NULL);
