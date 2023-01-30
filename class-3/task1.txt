@@ -1,0 +1,16 @@
+
+Napisz program:
+Użytkownik podaje 4 argumenty
+-i <string> - nazwa pliku zawierającego tekst
+-o <string> - nazwa pliku do którego ma zostać zapisany rezultat
+-t <string> - string, który będzie odpowiadał set1 programu tr
+-x <string> - string, które będzie odpowiadał set2 programu tr
+Każdy argument może być podany tylko jeden raz.
+Wszystkie flagi są wymagane.
+
+Należy przekierować standardowy strumień wyjścia na plik -o oraz wejścia na -i
+Następnie uruchumić program tr z argumentami podanymi w -t oraz -x
+
+W wyniku działania tr powinien zadziałać zgodnie z oczekiwaniami, a w pliku -o powinien znaleźć się zmieniony tekst z pliku -i
+-i pan-tadeusz.txt -o duzelitery.txt -t [:lower:] -x [:upper:]
+Przykładowe paramtry które zmieniają małe litery na duże w Panu Tadeuszu z wyjątkiem polskich liter
