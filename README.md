@@ -1,5 +1,9 @@
 ## C-learning-resources
 
+# Course based on AGH C course
+
+# Author: Adam Lewiński 
+
 # Legend
 p\<int\> - materials to learning  
 t\<int\> - excercise to practice  
