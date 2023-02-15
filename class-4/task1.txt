@@ -1,21 +1,31 @@
 Napisz dwa programy:
 Pierwszy program przyjmuje parametr x,e i n:
-x - liczba, którą zostanie zainicjalizowany generator liczb pseudoloswych, > 0 X
-e - liczba dopuszczalnych błędów z rzędu podczas tworzenia pliku E
-n - liczba plików, > 0 N
-Program ma napoczątku wylosować swój identyfikator rand()%X
-Następnie ma tworzyć pliki z flagą O_EXCL, jeśli się to nie powiedzie E razy z rzędu program kończy działanie
-Tworzone pliki mają mieć nazwę file_J, gdzie J należy do zbioru [1,N]
-Program ma zapisać do pliku swój identyfikator X jako tekst
+x - liczba X, którą zostanie zainicjalizowany generator liczb pseudoloswych, X > 0, integer
+e - liczba E dopuszczalnych błędów z rzędu podczas tworzenia pliku, E > 0, interger
+n - liczba N plików, N > 0, integer
+Program ma napoczątku wylosować swój identyfikator rand()%X, po uprzednim zainicjalizowaniu generatora liczb pseudolosowych liczbą X
+Następnie program ma tworzyć pliki z flagą O_EXCL, jeśli się to nie powiedzie E razy z rzędu program kończy działanie
+Tworzone pliki mają mieć nazwę file_J, gdzie J należy do zbioru [1,N], i ma być każdorazowo losowane (rand())
+Program ma zapisać do pliku swój identyfikator jako tekst, np. jeśli identyfikator:= 12, to w pliku ma zostać wpisane 12
 Po utworzeniu pliku program ma odczekać 0.01 sekundy
 Po zakończeninu działania program ma zwrócić swój indetyfikator
 
-Drugi program przyjmuje dwa parametry p, n, e:
-p - liczba utworzonych potomków, > 0 P
-n - liczba plików, > 0 N
-e - liczba dopuszczalnych błędów z rzędu podcza tworzenia pliku E
-Program ma zainicjalizować generator liczb pseudolosywych srand(time(NULL))
+Drugi program przyjmuje trzy parametry p, n, e:
+p - liczba P utworzonych potomków, P > 0, integer
+n - liczba N plików, N > 0, integer
+e - liczba E dopuszczalnych błędów z rzędu podcza tworzenia pliku, E > 0, integer
+Program ma zainicjalizować generator liczb pseudolosywych srand(P)
 Program ma utworzyć P potomków
-Każdy z potomków ma stać się pierwszym programem, gdzie x = |rand()| + 1, e = E, n = N
+Każdy z potomków ma stać się pierwszym programem, gdzie x = ( rand() % 128 ) + i, i to i-ty potomek i:= 1,2 ... p, e = E, n = N
 Kiedy wszyscy potomkowie zakończą działanie, program ma zliczyć ile plików wygenerował każdy z potomków, a następnie usunąć pliki (unlink())
 Program ma wyświetlić informacje w postaci: <pid_procesu>\t<identyfikator_procesu>\t<liczba_plików>
+Może się zdarzyć, że dwa programy będą miały ten sam identyfikator, wtedy należy przy obu podać taką samą liczbę zliczeń
+
+Przykładowe uruchomienie i rezultat:
+
+./p2 -p 4 -e 2 -n 50
+2870    19      6
+2871    60      12
+2872    1       6
+2873    46      6
+
